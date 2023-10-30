@@ -12,5 +12,43 @@ pipeline {
             sh(script: 'docker compose build')
          }
       }
+      stage('Start App') {
+         steps {
+            sh(script: 'docker compose up -d')
+         }
+      }
+      stage('Run Tests') {
+         steps {
+            sh(script: 'pytest ./tests/test_sample.py')
+         }
+         post {
+            success {
+               echo "Tests passed! :)"
+            }
+            failure {
+               echo "Tests failed :("
+            }
+         }
+      }
+      stage('Run Clair') {
+         agent {label 'build-2'}
+         steps {
+            sh(script: 'docker run -p 5432:5432 -d --name db arminc/clair-db:latest')
+            sh(script: 'docker run -p 6060:6060 --link db:postgres -d --name clair arminc/clair-local-scan:latest')
+         }
+      }
+      stage('Run Clair scan') {
+         agent {label 'build-2'}
+         steps {
+            sh(script: '/home/ubuntu/go/bin/clair-scanner --ip=172.17.0.1 mcr.microsoft.com/oss/bitnami/redis:6.0.8')
+            sh(script: '/home/ubuntu/go/bin/clair-scanner --ip=172.17.0.1 mcr.microsoft.com/azuredocs/azure-vote-front:v1')
+         }
+      }
+   }
+   post {
+      always {
+         sh(script: 'docker compose down')
+         sh(script: 'docker stop $(docker ps -aq)')
+      }
    }
 }
