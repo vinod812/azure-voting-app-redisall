@@ -33,8 +33,7 @@ pipeline {
       stage('Run Grype') {
          agent {label 'build-1'}
          steps {
-            grypeScan autoInstall: false, repName: 'grypeReport_bitnami_${JOB_NAME}_${BUILD_NUMBER}.txt', scanDest: 'registry:mcr.microsoft.com/oss/bitnami/redis:6.0.8'
-            grypeScan autoInstall: false, repName: 'grypeReport_front_${JOB_NAME}_${BUILD_NUMBER}.txt', scanDest: 'registry:mcr.microsoft.com/azuredocs/azure-vote-front:v1'
+            grypeScan autoInstall: false, repName: 'grypeReport_${JOB_NAME}_${BUILD_NUMBER}.txt', scanDest: 'registry:blackdentech/jenkins-course:2023'
          }
          post {
             always {
