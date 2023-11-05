@@ -40,8 +40,7 @@ pipeline {
       stage('Run Clair scan') {
          agent {label 'build-2'}
          steps {
-            sh(script: '/home/ubuntu/go/bin/clair-scanner --ip=172.17.0.1 mcr.microsoft.com/oss/bitnami/redis:6.0.8')
-            sh(script: '/home/ubuntu/go/bin/clair-scanner --ip=172.17.0.1 mcr.microsoft.com/azuredocs/azure-vote-front:v1')
+            sh(script: '/home/ubuntu/go/bin/clair-scanner --ip=172.17.0.1 blackdentech/jenkins-course:2023')
          }
       }
    }
