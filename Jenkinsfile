@@ -42,16 +42,14 @@ pipeline {
             stage('Run Clair scan') {
                agent {label 'build-2'}
                steps {
-                  sh(script: '/home/ubuntu/go/bin/clair-scanner --ip=172.17.0.1 mcr.microsoft.com/oss/bitnami/redis:6.0.8')
+                  //sh(script: '/home/ubuntu/go/bin/clair-scanner --ip=172.17.0.1 blackdentech/jenkins-course:2023')
                   sleep time: 1, unit: 'MINUTES'
-                  sh(script: '/home/ubuntu/go/bin/clair-scanner --ip=172.17.0.1 mcr.microsoft.com/azuredocs/azure-vote-front:v1')
                }
             }
             stage('Run Grype') {
                agent {label 'build-1'}
                steps {
-                  grypeScan autoInstall: false, repName: 'grypeReport_bitnami_${JOB_NAME}_${BUILD_NUMBER}.txt', scanDest: 'registry:mcr.microsoft.com/oss/bitnami/redis:6.0.8'
-                  grypeScan autoInstall: false, repName: 'grypeReport_front_${JOB_NAME}_${BUILD_NUMBER}.txt', scanDest: 'registry:mcr.microsoft.com/azuredocs/azure-vote-front:v1'
+                  grypeScan autoInstall: false, repName: 'grypeReport_${JOB_NAME}_${BUILD_NUMBER}.txt', scanDest: 'registry:blackdentech/jenkins-course:2023'
                }
                post {
                   always {
