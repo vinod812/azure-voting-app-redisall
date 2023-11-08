@@ -4,7 +4,7 @@ pipeline {
    agent any
 
    stages {
-      stage('Verify Branch') {
+      stage('Call Library Function with an arguement') {
          steps {
             script {
                helloWorld()
