@@ -1,15 +1,14 @@
+@Library('github.com/devbyaccident/demo-shared-pipeline')
+
 pipeline {
    agent any
 
    stages {
       stage('Verify Branch') {
          steps {
-            echo "$GIT_BRANCH"
-         }
-      }
-      stage('Docker Build') {
-         steps {
-            sh(script: 'docker compose build')
+            script {
+               helloWorld()
+            }
          }
       }
    }
