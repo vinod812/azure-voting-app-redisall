@@ -4,10 +4,17 @@ pipeline {
    agent any
 
    stages {
-      stage('Verify Branch') {
+      stage('Call Library Function with an arguement') {
          steps {
             script {
-               helloWorld()
+               helloArgs('Jenkins')
+            }
+         }
+      }
+      stage('Call additional Library Functions') {
+         steps {
+            script {
+               helloArgs.goodbyeWorld('Jenkins')
             }
          }
       }
