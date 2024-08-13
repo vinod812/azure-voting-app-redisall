@@ -30,7 +30,6 @@ pipeline {
             }
          }
       }*/
-      }*/
       stage('Docker Push') {
          steps {
             echo "Runnning in $WORKSPACE"
