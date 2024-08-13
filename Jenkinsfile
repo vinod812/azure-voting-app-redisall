@@ -30,7 +30,7 @@ pipeline {
             }
          }
       }*/
-      stage('Run Clair') {
+      /*stage('Run Clair') {
          agent {label 'built-in'}
          steps {
             sh(script: 'docker run -p 5432:5432 -d --name db arminc/clair-db:latest')
@@ -42,7 +42,7 @@ pipeline {
          steps {
             sh(script: '/home/ubuntu/go/bin/clair-scanner --ip=172.17.0.1 blackdentech/jenkins-course:2023')
          }
-      }
+      }*/
       stage('Docker Push') {
          steps {
             echo "Runnning in $WORKSPACE"
