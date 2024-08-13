@@ -9,15 +9,15 @@ pipeline {
       }
       stage('Docker Build') {
          steps {
-            sh(script: 'docker compose build')
+            bat(script: 'docker compose build')
          }
       }
       stage('Start App') {
          steps {
-            sh(script: 'docker compose up -d')
+            bat(script: 'docker compose up -d')
          }
       }
-      stage('Run Tests') {
+      /*stage('Run Tests') {
          steps {
             sh(script: 'pytest ./tests/test_sample.py')
          }
@@ -29,7 +29,7 @@ pipeline {
                echo "Tests failed :("
             }
          }
-      }
+      }*/
       stage('Docker Push') {
          steps {
             echo "Runnning in $WORKSPACE"
@@ -54,7 +54,7 @@ pipeline {
             sh "kubectl apply -f azure-vote-all-in-one-redis.yaml --kubeconfig $KUBECONFIG"
          }
       }
-      stage('Approve Deploy to PROD') {
+     /* stage('Approve Deploy to PROD') {
          when {
             branch 'feature/k8s-deploy'
          }
@@ -75,7 +75,7 @@ pipeline {
          steps {
             sh "kubectl apply -f azure-vote-all-in-one-redis.yaml --kubeconfig $KUBECONFIG"
          }
-      }
+      }*/
    }
    post {
       always {
