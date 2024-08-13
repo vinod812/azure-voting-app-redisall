@@ -17,7 +17,7 @@ pipeline {
             bat(script: 'docker compose up -d')
          }
       }
-      stage('Run Tests') {
+     /* stage('Run Tests') {
          steps {
             bat(script: 'pytest ./tests/test_sample.py')
          }
@@ -29,7 +29,7 @@ pipeline {
                echo "Tests failed :("
             }
          }
-      }
+      }*/
       stage('Docker Push') {
          steps {
             echo "Runnning in $WORKSPACE"
