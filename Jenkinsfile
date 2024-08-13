@@ -36,7 +36,7 @@ pipeline {
             dir("$WORKSPACE/azure-vote") {
                script {
                   docker.withRegistry('', 'vinod81212') {
-                     def image = docker.build('vinod812/vinod812:2023')
+                     def image = docker.build('vinod812/vinod812:tagname')
                      image.push()
                   }
                }
