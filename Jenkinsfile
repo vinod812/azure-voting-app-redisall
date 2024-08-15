@@ -45,13 +45,13 @@ pipeline {
       }
       stage('QA Deploy') {
          environment {
-            KUBECONFIG = credentials('qa-kubeconfig')
+            KUBECONFIG = credentials('vv-kubeconfig')
          }
          when {
             branch 'feature/k8s-deploy'
          }
          steps {
-            sh "kubectl apply -f azure-vote-all-in-one-redis.yaml --kubeconfig $KUBECONFIG"
+            bat "kubectl apply -f azure-vote-all-in-one-redis.yaml --kubeconfig $KUBECONFIG"
          }
       }
      /* stage('Approve Deploy to PROD') {
