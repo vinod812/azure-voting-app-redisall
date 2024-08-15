@@ -51,7 +51,9 @@ pipeline {
             branch 'feature/k8s-deploy'
          }
          steps {
-            bat "kubectl apply -f azure-vote-all-in-one-redis.yaml --kubeconfig $KUBECONFIG"
+            retry(3){
+               bat "kubectl apply -f azure-vote-all-in-one-redis.yaml --kubeconfig $KUBECONFIG"
+            }
          }
       }
      /* stage('Approve Deploy to PROD') {
